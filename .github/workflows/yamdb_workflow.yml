@@ -58,9 +58,9 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd yamdb_final/
-            git pull
-            cd infra/ 
+            sudo docker-compose stop
+            sudo docker-compose rm web
+        
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -68,12 +68,7 @@ jobs:
             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-            docker compose pull
-            docker compose up --build --force-recreate -d
-            docker container prune -f
-            docker image prune -f
-            docker compose exec web python manage.py migrate
-            docker compose exec web python manage.py collectstatic --no-input
+            sudo docker-compose up -d 
 
   send_message:
     runs-on: ubuntu-latest
