@@ -26,11 +26,11 @@
 - Установите и активируйте виртуальное окружение c учетом версии Python 3.7 (выбираем python не ниже 3.7):
 
 ```bash
-py -3.7 -m venv venv
+python3.7 -m venv venv
 ```
 
 ```bash
-source venv/Scripts/activate
+source venv/bin/activate
 ```
 
 - Затем нужно установить все зависимости из файла requirements.txt
